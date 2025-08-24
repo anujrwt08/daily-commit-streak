@@ -1,0 +1,28 @@
+name: Daily Commit
+
+on:
+  schedule:
+    - cron: '30 17 * * *'   # Runs daily at 11:00 PM IST (17:30 UTC)
+  workflow_dispatch:        # Allow manual trigger
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Update file
+        run: |
+          echo "Last update: $(date)" > update.md
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "anujrwt08"
+          git config --global user.email "anujrwt08@gmail.com"
+          git add update.md
+          git commit -m "Daily update [skip ci]" || echo "No changes to commit"
+
+      - name: Push changes
+        run: |
+          git push
