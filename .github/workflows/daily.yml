@@ -9,17 +9,18 @@ jobs:
   commit:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # 👈 gives permission to push
+      contents: write
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}   # 👈 use GitHub token
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update file with IST time
         run: |
           TZ='Asia/Kolkata' date > update.md
+          echo "Random: $RANDOM" >> update.md
 
       - name: Commit changes
         run: |
