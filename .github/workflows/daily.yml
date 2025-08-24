@@ -2,19 +2,24 @@ name: Daily Commit
 
 on:
   schedule:
-    - cron: '30 17 * * *'   # Runs daily at 11:00 PM IST (17:30 UTC)
-  workflow_dispatch:        # Allow manual trigger
+    - cron: '30 17 * * *'   # Runs daily at 11:00 PM IST
+  workflow_dispatch:
 
 jobs:
   commit:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # 👈 gives permission to push
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}   # 👈 use GitHub token
 
-      - name: Update file
+      - name: Update file with IST time
         run: |
-          echo "Last update: $(date)" > update.md
+          TZ='Asia/Kolkata' date > update.md
 
       - name: Commit changes
         run: |
