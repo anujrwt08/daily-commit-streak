@@ -2,7 +2,9 @@ name: Daily Commit
 
 on:
   schedule:
-    - cron: '30 17 * * *'   # Runs daily at 11:00 PM IST
+    - cron: '30 4 * * *'   # 10:00 AM IST
+    - cron: '30 8 * * *'   # 2:00 PM IST
+    - cron: '30 17 * * *'  # 11:00 PM IST
   workflow_dispatch:
 
 jobs:
@@ -19,8 +21,9 @@ jobs:
 
       - name: Update file with IST time
         run: |
-          TZ='Asia/Kolkata' date > update.md
+          TZ='Asia/Kolkata' date >> update.md
           echo "Random: $RANDOM" >> update.md
+          echo "---" >> update.md
 
       - name: Commit changes
         run: |
@@ -30,5 +33,6 @@ jobs:
           git commit -m "Daily update [skip ci]" || echo "No changes to commit"
 
       - name: Push changes
-        run: |
-          git push
+        uses: ad-m/github-push-action@v0.8.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
