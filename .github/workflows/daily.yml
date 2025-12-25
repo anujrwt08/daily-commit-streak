@@ -2,12 +2,14 @@ name: Daily Commit
 
 on:
   schedule:
-    - cron: '30 0 * * *'   # 6:00 AM IST
-    - cron: '30 4 * * *'   # 10:00 AM IST
-    - cron: '30 8 * * *'   # 2:00 PM IST
+    - cron: '30 18 * * *'  # 12:00 AM IST
+    - cron: '15 19 * * *'  # 12:45 AM IST
+    - cron: '30 19 * * *'  # 1:00 AM IST
+    - cron: '55 19 * * *'  # 1:25 AM IST
     - cron: '30 12 * * *'  # 6:00 PM IST
     - cron: '30 16 * * *'  # 10:00 PM IST
-    - cron: '30 20 * * *'  # 2:00 AM IST
+    - cron: '0 17 * * *'   # 10:30 PM IST
+    - cron: '30 17 * * *'  # 11:00 PM IST
   workflow_dispatch:
 
 jobs:
